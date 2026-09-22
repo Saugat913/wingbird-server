@@ -35,6 +35,12 @@ app.notFound((c) => {
   if (path.startsWith("/api")) {
     return c.json({ message: "Not Found" }, 404);
   }
+
+  // Why proxy the frontend route?
+  // Before version have both server and web in one project and deployed as one
+  // So cli handle it accordingly to the server url and ping server for login and all
+  // FOr backward compatability we will proxy the frontend route to the frontend url
+  // Later some point we will remove this proxy and use the frontend url directly
   const frontendUrl = new URL(c.env.FRONTEND_URL!);
   const requestUrl = new URL(c.req.url);
 
