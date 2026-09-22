@@ -29,8 +29,19 @@ app.use("*", corsMiddleware);
 app.use(logger());
 
 app.notFound((c) => {
-  console.log(" FRONTEND_URL ", c.env.FRONTEND_URL);
-  return c.redirect(c.env.FRONTEND_URL!);
+   const path = new URL(c.req.url).pathname;
+
+  // if startis with /api means to be api based route if not found jsut return custom json
+  if (path.startsWith("/api")) {
+    return c.json({ message: "Not Found" }, 404);
+  }
+  const frontendUrl = new URL(c.env.FRONTEND_URL!);
+  const requestUrl = new URL(c.req.url);
+
+  frontendUrl.pathname = requestUrl.pathname;
+  frontendUrl.search = requestUrl.search;
+
+  return fetch(new Request(frontendUrl, c.req.raw));
 });
 
 const apiRouter = new OpenAPIHono<AppEnv>();
