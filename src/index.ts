@@ -28,6 +28,11 @@ app.onError(errorHandler);
 app.use("*", corsMiddleware);
 app.use(logger());
 
+app.notFound((c) => {
+  console.log(" FRONTEND_URL ", c.env.FRONTEND_URL);
+  return c.redirect(c.env.FRONTEND_URL!);
+});
+
 const apiRouter = new OpenAPIHono<AppEnv>();
 apiRouter.use("*", (c, next) => {
   const db = createDb(c.env.wingbird_db);
@@ -95,8 +100,5 @@ apiRouter.get(
 
 app.route("/api", apiRouter);
 
-app.notFound((c) => {
-  return c.redirect(c.env.FRONTEND_URL!);
-});
 
 export default app;

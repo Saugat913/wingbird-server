@@ -4,7 +4,7 @@ import { cors } from "hono/cors";
 
 export const corsMiddleware = cors({
   origin: (origin, c) => {
-    const allowedOrigins = c.env.BETTER_AUTH_TRUSTED_ORIGINS
+    const allowedOrigins = c.env.TRUSTED_ORIGINS
       .split(",")
       .map((value: string) => value.trim())
       .filter(Boolean);
