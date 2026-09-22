@@ -4,14 +4,13 @@ import { z } from "@hono/zod-openapi";
 import { Architecture, ArchitectureSchema } from "../../types/architectures";
 import { ChannelSchema } from "../../types/channels";
 import { PlatformSchema } from "../../types/platforms";
-import { parentPort } from "node:worker_threads";
 
 export const CreatePatchesDto = z.object({
   patches: z.array(z.object({
     architecture: ArchitectureSchema,
     uploadId: z.string().min(1),
     libappHash: z.string().min(1),
-  })).min(1).superRefine((patches, context) => {
+  })).min(1).superRefine((patches: { architecture: Architecture; uploadId: string; libappHash: string; }[], context: { addIssue: (issue: { code: "custom"; message: string }) => void }) => {
     const seen = new Set<Architecture>();
     for (const patch of patches) {
       if (seen.has(patch.architecture)) {

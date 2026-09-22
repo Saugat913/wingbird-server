@@ -1,6 +1,6 @@
 # Wingbird Server
 
-Backend and web application for Wingbird, an open-source code-patching system for Flutter Android applications.
+Backend API for Wingbird, an open-source code-patching system for Flutter Android applications.
 
 > **Status:** Experimental / beta. The service is under active development and should be hardened and reviewed before production use.
 
@@ -12,12 +12,11 @@ Backend and web application for Wingbird, an open-source code-patching system fo
 - Handle upload workflows and artifact storage.
 - Store application metadata using Cloudflare D1 and Drizzle ORM.
 - Generate OpenAPI documentation and expose Swagger UI.
-- Serve the web UI from the same Hono application.
 
 ## Technology stack
 
 - Hono and `@hono/zod-openapi`
-- Cloudflare Workers with Vite and Wrangler
+- Cloudflare Workers with Wrangler
 - Cloudflare D1
 - Drizzle ORM and Drizzle Kit
 - Better Auth
@@ -38,7 +37,6 @@ src/
 ├── lib/         Shared libraries
 ├── middleware/  Request middleware and authentication
 ├── types/       Shared application types
-├── ui/          Web UI routes/components
 ├── env.ts       Environment bindings and validation
 ├── error.ts     Error handling
 └── index.ts     Worker entry point and route composition
@@ -64,7 +62,7 @@ Install dependencies:
 npm install
 ```
 
-Run the Vite development server:
+Run the Wrangler development server:
 
 ```bash
 npm run dev

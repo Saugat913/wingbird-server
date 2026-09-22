@@ -1,5 +1,4 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import ui from "./ui";
 
 import { requireAuth } from "./middleware/auth";
 import authRouter from "./features/auth/auth.routes";
@@ -21,11 +20,12 @@ import { PatchesRepository } from "./features/patches/patches.repository";
 import { patchesRouter } from "./features/patches/patches.routes";
 import { AppsRepository } from "./features/apps/apps.repository";
 import { AppService } from "./features/apps/apps.service";
+import { corsMiddleware } from "./middleware/cors";
 
 const app = new OpenAPIHono<AppEnv>();
 
 app.onError(errorHandler);
-
+app.use("*", corsMiddleware);
 app.use(logger());
 
 const apiRouter = new OpenAPIHono<AppEnv>();
@@ -93,8 +93,6 @@ apiRouter.get(
   }),
 );
 
-
-app.route("/", ui);
 app.route("/api", apiRouter);
 
 export default app;

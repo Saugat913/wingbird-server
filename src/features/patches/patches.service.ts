@@ -29,7 +29,7 @@ export class PatchesService {
       throw new NotFoundError("Release");
     }
 
-    const rows = await Promise.all(data.patches.map(async (e)=>{
+    const rows = await Promise.all(data.patches.map(async (e: { architecture: Architecture; uploadId: string; libappHash: string; }) => {
       const pendingUpload = await this.uploadService.validatePendingUpload(e.uploadId, data.appId);
       const patchNumber = await this.nextPatchNumber(
         release.id,

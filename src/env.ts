@@ -19,6 +19,7 @@ type Bindings = {
   S3_PRESIGNED_EXPIRE_SECONDS: number;
   MAX_RELEASES_PER_APP?: number | string;
   MAX_PATCHES_PER_RELEASE?: number | string;
+  TRUSTED_ORIGINS?: string;
 };
 
 type Variables = {
