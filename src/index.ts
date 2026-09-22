@@ -95,4 +95,8 @@ apiRouter.get(
 
 app.route("/api", apiRouter);
 
+app.notFound((c) => {
+  return c.redirect(c.env.FRONTEND_URL!);
+});
+
 export default app;
