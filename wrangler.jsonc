@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "wingbird",
+	"name": "wingbird-server",
 	"compatibility_date": "2025-08-03",
 	"compatibility_flags": [
 		"nodejs_compat"
