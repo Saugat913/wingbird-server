@@ -56,7 +56,7 @@ apiRouter.use("*", (c, next) => {
   c.set("db", db);
 
   const appRepo = new AppsRepository(db);
-  const appService = new AppService(appRepo);
+  const appService = new AppService(appRepo, Number(c.env.MAX_APPS_PER_USER));
   c.set("appService", appService);
 
   const storageRepo = new StorageRepository({

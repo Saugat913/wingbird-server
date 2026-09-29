@@ -34,6 +34,14 @@ appsRouter.openapi(
           },
         },
       },
+      400: {
+        description: "App quota limit reached",
+        content: {
+          "application/json": {
+            schema: z.object({ error: z.string() }),
+          },
+        },
+      }
     },
   }),
   async (c) => {

@@ -24,6 +24,15 @@ export class AppsRepository {
             .from(schema.appsTable)
             .where(eq(schema.appsTable.userId, userId));
     }
+    
+    async countByUserId(userId: string): Promise<number> {
+        const apps = await this.db
+            .select()
+            .from(schema.appsTable)
+            .where(eq(schema.appsTable.userId, userId));
+
+        return apps.length;
+    }
 
     async delete(id: string, userId: string): Promise<boolean> {
         const [deletedApp] = await this.db
